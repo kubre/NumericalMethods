@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import in.kubre.numericalmethods.unit1.BisectionMethod;
-import in.kubre.numericalmethods.unit1.RegulaFalsiMethod;
-import in.kubre.numericalmethods.unit1.Values;
-import in.kubre.numericalmethods.unit2.JacobiMethod;
-import in.kubre.numericalmethods.unit2.Matrix;
+import in.kubre.numericalmethods.root_finding.BisectionMethod;
+import in.kubre.numericalmethods.root_finding.RegulaFalsiMethod;
+import in.kubre.numericalmethods.root_finding.Values;
+import in.kubre.numericalmethods.iterative_method.GaussSeidelMethod;
+import in.kubre.numericalmethods.iterative_method.IterativeMethod;
+import in.kubre.numericalmethods.iterative_method.JacobiMethod;
+import in.kubre.numericalmethods.iterative_method.Matrix;
 
 /**
  *
@@ -18,20 +20,37 @@ public class Main {
 
     public static void main(String args[]) {
         // iterativeMethodExample();
-        // jacobiMethodExample();
+        jacobiMethodExample();
+        seidelMethodExample();
+    }
+
+    private static void seidelMethodExample() {
+        Matrix<Double> matrix = new Matrix<>(Arrays.asList(
+            Arrays.asList(10D, 1D, -1D, 11.19D),
+            Arrays.asList(1D, 10D, 1D, 28.08D),
+            Arrays.asList(-1D, 1D, 10D, 35.61D)
+        ));
+
+        IterativeMethod j = new GaussSeidelMethod(matrix);
+        List<Double> jApproxs = j.approximate();
+
+        System.out.println("Sediel Method");
+        for (int i = 0; i < jApproxs.size(); i++) {
+            System.out.printf("x%d: %.4f\n", i, jApproxs.get(i));
+        }
     }
 
     private static void jacobiMethodExample() {
         Matrix<Double> matrix = new Matrix<>(Arrays.asList(
-            Arrays.asList(10D, 1D, -1D),
-            Arrays.asList(1D, 10D, 1D),
-            Arrays.asList(-1D, 1D, 10D)
+            Arrays.asList(10D, 1D, -1D, 11.19D),
+            Arrays.asList(1D, 10D, 1D, 28.08D),
+            Arrays.asList(-1D, 1D, 10D, 35.61D)
         ));
-        List<Double> vector = new ArrayList<>(3);
+        // List<Double> vector = new ArrayList<>(3);
 
-        vector.addAll(Arrays.asList(11.19D, 28.08D, 35.61D));
+        // vector.addAll(Arrays.asList());
 
-        JacobiMethod j = new JacobiMethod(matrix, vector);
+        IterativeMethod j = new JacobiMethod(matrix);
         List<Double> jApproxs = j.approximate();
 
         System.out.println("Jacobi Method");

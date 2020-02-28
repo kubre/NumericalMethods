@@ -1,7 +1,5 @@
-package in.kubre.numericalmethods.unit2;
+package in.kubre.numericalmethods.iterative_method;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

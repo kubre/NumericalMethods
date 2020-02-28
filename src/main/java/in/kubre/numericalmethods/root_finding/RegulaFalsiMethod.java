@@ -1,4 +1,4 @@
-package in.kubre.numericalmethods.unit1;
+package in.kubre.numericalmethods.root_finding;
 /**
  *
  * @author kubre

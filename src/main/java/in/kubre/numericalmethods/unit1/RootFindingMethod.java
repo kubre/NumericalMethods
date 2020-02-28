@@ -11,13 +11,20 @@ import net.objecthunter.exp4j.ExpressionBuilder;
  */
 public abstract class RootFindingMethod {
 
+    private int iterationCount = 5;
+
     protected abstract double approximate(Values value);
 
-    public ArrayList<Values> approximate(String sfx) {
-        return this.approximate(sfx, "x");
+    public ArrayList<Values> find(String sfx) {
+        return this.find(sfx, "x");
     }
 
-    public ArrayList<Values> approximate(String sfx, String var) {
+    public RootFindingMethod performIterations(int iterationCount) {
+        this.iterationCount = iterationCount;
+        return this;
+    }
+
+    public ArrayList<Values> find(String sfx, String var) {
         /* TODO: Find a better way to calculate expressions */
         Expression fx = new ExpressionBuilder(sfx).variable(var).build();
 
@@ -25,9 +32,9 @@ public abstract class RootFindingMethod {
         char xSign;
 
         // Approximations
-        ArrayList<Values> ax = new ArrayList<>(5);
+        ArrayList<Values> ax = new ArrayList<>(iterationCount);
 
-        for (int i = 0; i <= 5; i++) {
+        for (int i = 0; i <= iterationCount; i++) {
             fx1 = fx.setVariable(var, i).evaluate();
             fx2 = fx.setVariable(var, i + 1).evaluate();
             if ((fx1 < 0 && fx2 > 0) || (fx1 > 0 && fx2 < 0)) {
@@ -35,7 +42,7 @@ public abstract class RootFindingMethod {
             }
         }
 
-        for (int i = 0; i >= 5; i--) {
+        for (int i = 0; i >= iterationCount; i--) {
             fx1 = fx.setVariable(var, i).evaluate();
             fx2 = fx.setVariable(var, i - 1).evaluate();
             if ((fx1 < 0 && fx2 > 0) || (fx1 > 0 && fx2 < 0)) {
@@ -43,7 +50,7 @@ public abstract class RootFindingMethod {
             }
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < iterationCount; i++) {
             x = this.approximate(ax.get(i));
             fxx = fx.setVariable(var, x).evaluate();
             xSign = fxx > 0 ? '+' : '-';

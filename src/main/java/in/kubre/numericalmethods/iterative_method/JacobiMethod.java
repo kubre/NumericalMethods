@@ -2,6 +2,8 @@ package in.kubre.numericalmethods.iterative_method;
 
 import java.util.List;
 
+import in.kubre.numericalmethods.utils.Matrix;
+
 /**
  * GaussJacobian
  */
@@ -14,7 +16,7 @@ public class JacobiMethod extends IterativeMethod {
     public List<Double> approximate() {
         resetVectors();
 
-        int maxJ = matrix.rowSize() - 1;
+        int maxJ = matrix.columnCount() - 1;
         double currentXApprox;
         for (int k = 0; k < matrix.size(); k++) {
             xPrev = x;

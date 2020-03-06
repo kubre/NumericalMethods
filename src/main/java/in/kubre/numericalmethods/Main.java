@@ -7,10 +7,11 @@ import java.util.List;
 import in.kubre.numericalmethods.root_finding.BisectionMethod;
 import in.kubre.numericalmethods.root_finding.RegulaFalsiMethod;
 import in.kubre.numericalmethods.root_finding.Values;
+import in.kubre.numericalmethods.forward_backward_interpolation.DifferenceTable;
 import in.kubre.numericalmethods.iterative_method.GaussSeidelMethod;
 import in.kubre.numericalmethods.iterative_method.IterativeMethod;
 import in.kubre.numericalmethods.iterative_method.JacobiMethod;
-import in.kubre.numericalmethods.iterative_method.Matrix;
+import in.kubre.numericalmethods.utils.Matrix;
 
 /**
  *
@@ -20,8 +21,23 @@ public class Main {
 
     public static void main(String args[]) {
         // iterativeMethodExample();
-        jacobiMethodExample();
-        seidelMethodExample();
+        // jacobiMethodExample();
+        // seidelMethodExample();
+
+        forwardAndBackwardInterpolation();
+    }
+
+    private static void forwardAndBackwardInterpolation() {
+        Matrix<Double> table = new DifferenceTable(
+            Arrays.asList(45D, 50D, 55D, 60D),
+            Arrays.asList(.7071D, .7660D, .8192D, .8660D)
+        ).calculate().getTable(); 
+        for (int i=0; i< table.size(); i++) {
+            System.out.print("\nC"+i+": ");
+            for (Double val: table.get(i)) {
+                System.out.printf(" %.4f ", val);
+            }
+        }
     }
 
     private static void seidelMethodExample() {

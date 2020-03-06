@@ -3,6 +3,8 @@ package in.kubre.numericalmethods.iterative_method;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.kubre.numericalmethods.utils.Matrix;
+
 /**
  * IterativeMethod
  */
